@@ -1,0 +1,24 @@
+
+/*
+    Color palette for this project
+
+    - maroon:     #5B0B24  (deep maroon)
+    - light-pink: #ECC2BE  (soft, warm pink)
+    - cream:      #E0D6CC  (light neutral cream)
+
+*/
+
+/* CSS variables (custom properties) for the palette */
+:root {
+    --color-maroon: #5B0B24;
+    --color-light-pink: #ECC2BE;
+    --color-cream: #E0D6CC;
+
+    /* Semantic aliases (optional) */
+    --bg: var(--color-cream);
+    --accent: var(--color-maroon);
+    --muted: var(--color-light-pink);
+}
+
+/* ...existing code... */
+
