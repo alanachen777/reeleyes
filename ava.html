@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> ReelEyes</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1> Upload Photo or Video</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" accept="image/*,video/*" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="result"></div>
+        <script>
+            document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const fileInput = document.getElementById('fileInput');
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert('Please select a file to upload.');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const result = await response.json();
+                    document.getElementById('result').innerText = 'Upload successful: ' + JSON.stringify(result);
+                } catch (error) {
+                    console.error('There was a problem with the upload:', error);
+                    document.getElementById('result').innerText = 'Upload failed: ' + error.message;
+                }
+            });
+        </script>
+    </body>
+</html>
+
