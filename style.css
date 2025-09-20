@@ -21,4 +21,13 @@
 }
 
 /* ...existing code... */
+body {
+  background: var(--bg);
+  color: var(--accent);
+}
 
+button {
+  background: var(--accent);
+  color: var(--color-cream);
+  border: 1px solid var(--muted);
+}
