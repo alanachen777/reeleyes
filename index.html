@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelEyes - AI Video Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ReelEyes</h1>
+        <p>Upload a video to detect if it's AI-generated</p>
+        
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="videoFile" accept="video/*" hidden>
+            <div class="upload-content">
+                <div class="upload-icon">📹</div>
+                <p>Click or drag video here</p>
+            </div>
+        </div>
+        
+        <button id="analyzeBtn" disabled>Analyze Video</button>
+        
+        <div id="result" class="result hidden">
+            <h3>Analysis Result</h3>
+            <div id="resultContent"></div>
+        </div>
+        
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Analyzing video...</p>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('videoFile');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const result = document.getElementById('result');
+        const resultContent = document.getElementById('resultContent');
+        const loading = document.getElementById('loading');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files[0] && files[0].type.startsWith('video/')) {
+                fileInput.files = files;
+                handleFileSelect();
+            }
+        });
+
+        fileInput.addEventListener('change', handleFileSelect);
+
+        function handleFileSelect() {
+            const file = fileInput.files[0];
+            if (file) {
+                uploadArea.querySelector('p').textContent = `Selected: ${file.name}`;
+                analyzeBtn.disabled = false;
+            }
+        }
+
+        analyzeBtn.addEventListener('click', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            loading.classList.remove('hidden');
+            result.classList.add('hidden');
+            analyzeBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('video', file);
+
+            try {
+                const response = await fetch('http://localhost:5000/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                
+                loading.classList.add('hidden');
+                result.classList.remove('hidden');
+                
+                const isAI = data.is_ai_generated;
+                
+                resultContent.innerHTML = `
+                    <div class="result-badge ${isAI ? 'ai' : 'real'}">
+                        ${isAI ? '🤖 AI Generated' : '✅ Real Video'}
+                    </div>
+                    <p class="details">${data.details || 'Analysis complete.'}</p>
+                `;
+            } catch (error) {
+                loading.classList.add('hidden');
+                result.classList.remove('hidden');
+                resultContent.innerHTML = '<p class="error">Error analyzing video. Please try again.</p>';
+            }
+            
+            analyzeBtn.disabled = false;
+        });
+    </script>
+</body>
+</html>
