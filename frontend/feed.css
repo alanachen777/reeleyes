@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --color-maroon: #5B0B24;
+    --color-light-pink: #CC847E;
+    --color-cream: #E0D6CC;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--color-cream);
+    min-height: 100vh;
+    padding-top: 120px; /* Space for top bar */
+}
+
+/* Top bar styles (same as main page) */
+.top-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100px;
+    background: var(--color-maroon);
+    z-index: 9990;
+    pointer-events: none;
+}
+
+.corner-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    position: fixed;
+    top: 5px;
+    left: 16px;
+    z-index: 10000;
+}
+
+.top-actions {
+    position: fixed;
+    top: 30px;
+    right: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    z-index: 9999;
+}
+
+.upload-btn, .login-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background: var(--color-light-pink);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(204,132,126,0.18);
+    transition: all 0.15s ease;
+}
+
+.upload-btn:hover, .login-btn:hover {
+    transform: translateY(-2px);
+    background: white;
+    color: var(--color-light-pink);
+    box-shadow: 0 12px 28px rgba(204,132,126,0.22);
+}
+
+/* Feed container */
+.feed-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    color: var(--color-maroon);
+    margin-bottom: 0.5rem;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--color-maroon) 0%, var(--color-light-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+p {
+    color: #666;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+/* Video grid */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.video-card video {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background: #f0f0f0;
+    border-radius: 8px 8px 0 0;
+}
+
+.video-info {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.video-info h3 {
+    color: var(--color-maroon);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.upload-time {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.video-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verified-badge {
+    display: inline-block;
+    background: #51cf66;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.delete-btn {
+    font-family: 'Inter', sans-serif;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+}
+
+/* No videos state */
+.no-videos {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+}
+
+.no-videos button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background: var(--color-light-pink);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.no-videos button:hover {
+    background: white;
+    color: var(--color-light-pink);
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .feed-container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}

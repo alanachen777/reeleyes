@@ -10,7 +10,7 @@
     <img src="/logo/ReelEyes.png" alt="Reeleyes logo" class="corner-logo" />
         <div class="top-bar" aria-hidden="true"></div>
         <div class="top-actions">
-            <button class="upload-btn" id="uploadBtn">Upload</button>
+            <button class="feed-btn" onclick="window.location.href='feed.html'">Feed</button>
             <button class="login-btn" id="loginBtn">Login</button>
         </div>
     <div class="container">
@@ -96,12 +96,47 @@
                 
                 const isAI = data.is_ai_generated;
                 
-                resultContent.innerHTML = `
-                    <div class="result-badge ${isAI ? 'ai' : 'real'}">
-                        ${isAI ? '🤖 AI Generated' : '✅ Real Video'}
-                    </div>
-                    <p class="details">${data.details || 'Analysis complete.'}</p>
-                `;
+                if (isAI) {
+                    // AI detected - show rejection message
+                    resultContent.innerHTML = `
+                        <div class="result-badge ai">
+                            🤖 AI Generated - Upload Rejected
+                        </div>
+                        <p class="details">${data.details || 'AI content is not allowed on ReelEyes.'}</p>
+                        <p class="error">Please upload authentic, human-created content only.</p>
+                    `;
+                } else {
+                    // Real video - save and redirect
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const videoData = {
+                            filename: file.name,
+                            data: e.target.result,
+                            timestamp: Date.now()
+                        };
+                        
+                        // Save to localStorage
+                        const videos = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+                        videos.unshift(videoData);
+                        localStorage.setItem('uploadedVideos', JSON.stringify(videos));
+                        
+                        // Show success message and redirect
+                        setTimeout(() => {
+                            window.location.href = 'feed.html';
+                        }, 2000);
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    resultContent.innerHTML = `
+                        <div class="result-badge real">
+                            ✅ Real Video - Upload Successful!
+                        </div>
+                        <p class="details">${data.details || 'Video verified and uploaded.'}</p>
+                        <button onclick="window.location.href='feed.html'" style="margin-top: 1rem; background: var(--color-light-pink, #CC847E); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">View Feed</button>
+                    `;
+                    
+
+                }
             } catch (error) {
                 loading.classList.add('hidden');
                 result.classList.remove('hidden');

@@ -1,28 +1,13 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600&display=swap');
+
 :root {
-    
---color-maroon: #5B0B24;
+    --color-maroon: #5B0B24;
     --color-light-pink: #CC847E;
     --color-cream: #E0D6CC;
-    /* Semantic aliases (optional) */
-    --bg: var(--color-cream);
-    --accent: var(--color-maroon);
-    --muted: var(--color-light-pink);
 }
 
-/* ...existing code... */
-body {
-  background: var(--bg);
-  color: var(--accent);
-}
 
-button {
-  background: var(--accent);
-  color: var(--color-cream);
-  border: 1px solid var(--muted);
-}
-
-/* ...existing code... */
 
 * {
     margin: 0;
@@ -31,26 +16,25 @@ button {
 }
 
 
-/* Top-right login button */
 .top-actions {
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: 30px;
+    right: 24px;
     display: flex;
-    gap: 20px; /* updated spacing */
+    gap: 16px;
     align-items: center;
     z-index: 9999;
 }
 
 .corner-logo {
-    width: 72px;
-    height: 72px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.12);
     position: fixed;
-    top: 6px;
-    left: 12px;
+    top: 5px;
+    left: 16px;
     z-index: 10000;
 }
 
@@ -60,63 +44,72 @@ button {
     left: 0;
     right: 0;
     top: 0;
-    height: 64px; /* height of the bar behind the buttons */
-    background: var(--color-light-pink, #CC847E); /* use project light pink */
-    z-index: 9990; /* behind the buttons */
-    pointer-events: none; /* allow clicks through to buttons */
+    height: 100px;
+    background: var(--color-maroon);
+    z-index: 9990;
+    pointer-events: none;
 }
 
 .login-btn {
     position: static;
     top: auto;
     right: auto;
-    background: var(--color-maroon, #5B0B24);
-    color: #ffffff;
+    background: var(--color-light-pink, #CC847E);
+    color: white;
     border: none;
-    padding: 0.5rem 0.9rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 999px;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(91,11,36,0.18);
+    box-shadow: 0 8px 20px rgba(204,132,126,0.18);
     z-index: 1000;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: all 0.15s ease;
 }
 
 .login-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(91,11,36,0.22);
+    background: white;
+    color: var(--color-light-pink, #CC847E);
+    box-shadow: 0 12px 28px rgba(204,132,126,0.22);
 }
 
-/* Upload button positioned left of login */
-.upload-btn {
+
+.feed-btn {
     position: static;
     top: auto;
     right: auto;
-    background: #ffffff;
-    color: var(--color-maroon, #5B0B24);
-    border: 1px solid rgba(0,0,0,0.06);
-    padding: 0.5rem 0.9rem;
+    background: var(--color-light-pink, #CC847E);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
     border-radius: 999px;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 20px rgba(204,132,126,0.18);
     z-index: 1000;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: all 0.15s ease;
 }
 
-.upload-btn:hover {
+.feed-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+    background: white;
+    color: var(--color-light-pink, #CC847E);
+    box-shadow: 0 12px 28px rgba(204,132,126,0.22);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg, #E0D6CC);
+    font-family: 'Inter', sans-serif;
+    background: var(--color-cream);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem; /* keep some space around centered container */
+    padding: 2rem;
+    padding-top: 140px;
 }
 
 .container {
@@ -130,9 +123,17 @@ body {
 }
 
 h1 {
-    color: #333;
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    color: var(--color-maroon);
     margin-bottom: 0.5rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--color-maroon) 0%, var(--color-light-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 p {
@@ -159,19 +160,22 @@ p {
     margin-bottom: 1rem;
 }
 button {
-    background: #667eea;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background: var(--color-light-pink, #CC847E);
     color: white;
     border: none;
     padding: 1rem 2rem;
     border-radius: 8px;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     margin-bottom: 2rem;
 }
 
 button:hover:not(:disabled) {
-    background: #5a6fd8;
+    background: white;
+    color: #CC847E;
 }
 
 button:disabled {
@@ -238,49 +242,5 @@ button:disabled {
     display: none;
 }
 
-/* Ensure the login button sits above other UI and stays in top-right on all viewports */
-.top-actions {
-    position: fixed !important;
-    top: 16px !important;
-    right: 16px !important;
-    display: flex !important;
-    gap: 20px !important;
-    align-items: center !important;
-    z-index: 9999 !important;
-}
 
-@media (max-width: 480px) {
-    .login-btn {
-        top: 10px !important;
-        right: 10px !important;
-        padding: 0.45rem 0.7rem !important;
-        font-size: 0.95rem !important;
-    }
-}
 
-    /* Important overrides for top-actions container */
-    .top-actions {
-        position: fixed !important;
-        top: 16px !important;
-        right: 16px !important;
-        display: flex !important;
-        gap: 40px !important;
-        align-items: center !important;
-        z-index: 9999 !important;
-    }
-
-    @media (max-width: 480px) {
-        .upload-btn {
-            right: 140px !important;
-            padding: 0.45rem 0.7rem !important;
-            font-size: 0.95rem !important;
-        }
-    }
-
-/* Strong override to ensure the top-bar is visible */
-.top-bar {
-    background: var(--color-light-pink, #CC847E) !important;
-    height: 80px !important;
-    display: block !important;
-    z-index: 9990 !important;
-}

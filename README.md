@@ -1,27 +1,27 @@
-# ReelEyes 👁️🤖
+# ReelEyes 👁️👄👁️
 
 **AI Video Detection Platform for Social Media**
 
-ReelEyes is a web application that analyzes uploaded videos to detect if they were generated using AI tools. Built for SteelHacks 2025, it's designed to be a short-form social media platform (like TikTok) with an emphasis on preventing AI-generated content.
+ReelEyes is a web application that analyzes uploaded videos to detect if they were generated using AI tools. Built for SteelHacks 2025, it functions as a social media platform that only allows authentic, human-created content.
 
 ## 🚀 Features
 
 - **Real-time AI Detection**: Upload videos and get instant analysis
-- **Smart Analysis**: Detects AI generation patterns, codec signatures, and file characteristics
-- **Clean Interface**: Modern, responsive web design
-- **Fast Processing**: Lightweight backend with efficient analysis
-- **Detailed Results**: Shows specific indicators found during analysis
+- **Smart Content Filtering**: AI-generated videos are rejected automatically
+- **Social Media Feed**: View and interact with verified authentic videos
+- **Video Management**: Delete your uploaded videos from the feed
+- **Modern UI**: Clean design with Orbitron and Inter fonts
+- **Responsive Design**: Works on desktop and mobile devices
 
 ## 🛠️ Technology Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript
-- **Backend**: Python Flask
-- **Analysis**: File entropy, codec detection, pattern recognition
-- **Styling**: Modern design with responsive layout
+- **Backend**: Python Flask with CORS support
+- **Storage**: Browser localStorage for video data
+- **Fonts**: Orbitron (titles) + Inter (UI elements)
+- **Analysis**: File entropy, codec detection, filename patterns
 
 ## 📋 Prerequisites
-
-Before running ReelEyes, make sure you have:
 
 - **Python 3.7+** installed on your system
 - **pip** (Python package manager)
@@ -42,7 +42,7 @@ Before running ReelEyes, make sure you have:
    
    # On Mac/Linux
    cd backend
-   pip install flask flask-cors requests
+   pip install Flask Flask-CORS
    python app.py
    ```
 
@@ -51,90 +51,93 @@ Before running ReelEyes, make sure you have:
    http://localhost:5000
    ```
 
-## 🎯 How to Use
+## 🎯 How It Works
 
-1. **Upload Video**: Click the upload area or drag & drop a video file
-2. **Analyze**: Click "Analyze Video" button
-3. **View Results**: Get instant feedback on whether the video is AI-generated
-4. **Review Details**: See specific indicators that influenced the detection
+### Upload & Analysis Flow
+1. **Upload Video**: Drag & drop or click to select a video file
+2. **AI Detection**: System analyzes the video for AI generation indicators
+3. **Smart Filtering**: 
+   - ✅ **Real videos** → Uploaded to feed automatically
+   - ❌ **AI videos** → Rejected with explanation
+4. **Feed Redirect**: Successfully uploaded videos redirect you to the social feed
 
-## 🔍 Detection Methods
-
-ReelEyes uses multiple analysis techniques:
-
+### Detection Methods
 - **Filename Analysis**: Checks for AI-related keywords
-- **Codec Detection**: Identifies signatures from AI generation tools
-- **Entropy Analysis**: Measures data randomness patterns
-- **File Characteristics**: Analyzes compression and size patterns
+- **Codec Signatures**: Identifies patterns from AI generation tools  
+- **File Entropy**: Measures data randomness and compression patterns
+- **Size Analysis**: Evaluates file characteristics typical of AI content
+
+## 📱 User Interface
+
+### Upload Page (`/`)
+- Futuristic **REELEYES** title with gradient text
+- Drag & drop upload area
+- Real-time analysis with loading spinner
+- **Feed** button to view uploaded content
+
+### Social Feed (`/feed`)
+- Grid layout of verified authentic videos
+- Playable video previews
+- Upload timestamps and verification badges
+- Delete functionality for content management
 
 ## 📁 Project Structure
 
 ```
 reeleyes/
 ├── backend/
-│   ├── app.py          # Main Flask server
-│   ├── analyzer.py     # AI detection logic
-│   ├── ml_detector.py  # Machine learning detector
-│   └── run_server.py   # Server runner
+│   └── app.py              # Flask server with AI detection
 ├── frontend/
-│   ├── index.html      # Main web interface
-│   └── style.css       # Styling and responsive design
-├── scripts/
-│   ├── train_ml.py     # ML model training
-│   ├── test_*.py       # Test files
-│   └── extract_*.py    # Data extraction tools
-├── run.bat            # Windows startup script
-├── requirements.txt   # Python dependencies
-└── README.md          # This file
+│   ├── index.html          # Upload/analysis page
+│   ├── style.css           # Main page styling
+│   ├── feed.html           # Social media feed
+│   └── feed.css            # Feed page styling
+├── logo/
+│   └── ReelEyes.png        # Platform logo
+├── run.bat                 # Windows startup script
+├── requirements.txt        # Python dependencies
+└── README.md              # This documentation
 ```
 
-## 🎨 Interface Preview
+## 🎨 Design Features
 
-- **Upload Area**: Drag & drop or click to select videos
-- **Analysis Button**: Processes the uploaded video
-- **Results Display**: Shows AI/Real verdict with confidence details
-- **Loading Animation**: Smooth spinner during processing
+- **Color Scheme**: Maroon (#5B0B24) + Light Pink (coral) (#CC847E) + Cream (#E0D6CC)
+- **Typography**: Orbitron for branding, Inter for interface elements
+- **Animations**: Smooth hover effects and loading states
+- **Responsive**: Mobile-friendly grid layouts
 
 ## 🚀 API Endpoints
 
-- `GET /` - Serves the main web interface
-- `POST /api/analyze` - Analyzes uploaded video files
-- `GET /<filename>` - Serves static files (CSS, etc.)
+- `GET /` - Main upload/analysis interface
+- `GET /feed` - Social media feed page
+- `POST /api/analyze` - Video analysis endpoint
+- `GET /logo/<filename>` - Logo assets
+- `GET /<filename>` - Static file serving
 
 ## 🔮 Future Enhancements
 
-- Integration with advanced ML models
-- Support for more video formats
-- Batch processing capabilities
-- API rate limiting and authentication
-- Enhanced detection algorithms
+- User authentication and profiles
+- Advanced ML model integration
+- Video comments and social features
+- Content moderation tools
+- Mobile app development
+- Cloud storage integration
 
-## 🏆 Hackathon Context
+## 🏆 SteelHacks 2025
 
-Built for **SteelHacks 2025** to address the growing need for AI content detection on social media platforms. As AI-generated videos become more sophisticated, platforms need reliable tools to maintain content authenticity.
+Built for **SteelHacks 2025** to address the growing challenge of AI-generated content on social media platforms. As deepfakes and AI videos become more sophisticated, platforms need reliable detection systems to maintain content authenticity and user trust. 
 
-## 🤝 Contributing
+## 👥 Team - Chalant **(Go WVU! 🏔️)**
 
-This is a hackathon project, but contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+- **Alana Chen** - Full-stack developer, ayc00003@mix.wvu.edu
+- **Kara Adzima** - Front-end developer, kaa00024@mix.wvu.edu  
+- **Ava Hill** - Front-end developer, amh00065@mix.wvu.edu
+- **Josiah Brown** - Backend developer, jbd00076@mix.wvu.edu
 
 ## 📄 License
 
-MIT License - feel free to use this project for educational purposes.
-
-## 👥 Team
-
-Built with ❤️ for SteelHacks 2025 by Chalant (Go WVU!!!)
-
-Alana Chen - Full-stack developer, ayc00003@mix.wvu.edu
-Kara Adzima - Front-end developer, kaa00024@mix.wvu.edu
-Ava Hill - Front-end developer, amh00065@mix.wvu.edu
-Josiah Brown - Backend developer, jbd00076@mix.wvu.edu
+MIT License - Built for educational and hackathon purposes.
 
 ---
 
-**Note**: This is a proof-of-concept *DEMO* built for a hackathon. For production use, consider implementing more robust AI detection models and security measures.
+**⚠️ Note**: This is a hackathon prototype demonstrating AI content detection concepts. For production deployment, implement robust ML models, user authentication, and enhanced security measures.

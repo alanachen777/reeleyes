@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelEyes - Feed</title>
+    <link rel="stylesheet" href="feed.css">
+</head>
+<body>
+    <img src="/logo/ReelEyes.png" alt="Reeleyes logo" class="corner-logo" />
+    <div class="top-bar" aria-hidden="true"></div>
+    <div class="top-actions">
+        <button class="upload-btn" onclick="window.location.href='/'">Upload</button>
+        <button class="login-btn">Login</button>
+    </div>
+
+    <div class="feed-container">
+        <h1>ReelEyes Feed</h1>
+        <p>Authentic videos from our community</p>
+        
+        <div id="videoFeed" class="video-grid">
+            <!-- Videos will be loaded here -->
+        </div>
+        
+        <div id="noVideos" class="no-videos hidden">
+            <p>No videos uploaded yet. Be the first to share!</p>
+            <button onclick="window.location.href='/'">Upload Video</button>
+        </div>
+    </div>
+
+    <script>
+        // Load videos from localStorage
+        function loadVideos() {
+            const videos = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+            const videoFeed = document.getElementById('videoFeed');
+            const noVideos = document.getElementById('noVideos');
+            
+            if (videos.length === 0) {
+                videoFeed.classList.add('hidden');
+                noVideos.classList.remove('hidden');
+                return;
+            }
+            
+            noVideos.classList.add('hidden');
+            videoFeed.classList.remove('hidden');
+            
+            videoFeed.innerHTML = videos.map((video, index) => `
+                <div class="video-card">
+                    <video controls preload="metadata">
+                        <source src="${video.data}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-info">
+                        <h3>${video.filename}</h3>
+                        <p class="upload-time">${new Date(video.timestamp).toLocaleDateString()}</p>
+                        <div class="video-actions">
+                            <div class="verified-badge">✅ Verified Real</div>
+                            <button class="delete-btn" onclick="deleteVideo(${index})">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Delete video function
+        function deleteVideo(index) {
+            if (confirm('Are you sure you want to delete this video?')) {
+                const videos = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+                videos.splice(index, 1);
+                localStorage.setItem('uploadedVideos', JSON.stringify(videos));
+                loadVideos(); // Reload the feed
+            }
+        }
+        
+        // Load videos when page loads
+        loadVideos();
+    </script>
+</body>
+</html>
