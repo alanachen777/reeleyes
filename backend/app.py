@@ -19,6 +19,16 @@ def index():
 def static_files(filename):
     return send_from_directory('../frontend', filename)
 
+
+# Serve repository-level static directories like logo/ explicitly so paths like
+# /logo/ReelEyes.png work regardless of which frontend folder is being served.
+@app.route('/logo/<path:filename>')
+def logo_files(filename):
+    # Resolve absolute path to the repo-level logo directory
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    logo_dir = os.path.join(base_dir, 'logo')
+    return send_from_directory(logo_dir, filename)
+
 @app.route('/api/analyze', methods=['POST'])
 def analyze_video():
     print("API endpoint hit!")

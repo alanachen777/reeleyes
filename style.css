@@ -1,0 +1,298 @@
+
+:root {
+    
+--color-maroon: #5B0B24;
+    --color-light-pink: #CC847E;
+    --color-cream: #E0D6CC;
+    /* Semantic aliases (optional) */
+    --bg: var(--color-cream);
+    --accent: var(--color-maroon);
+    --muted: var(--color-light-pink);
+}
+
+/* ...existing code... */
+body {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: var(--color-cream);
+  border: 1px solid var(--muted);
+}
+
+/* ...existing code... */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Top-right login button */
+.top-actions {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 20px; /* updated spacing */
+    align-items: center;
+    z-index: 9999;
+}
+
+.corner-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    position: fixed;
+        top: 6px;
+    left: 12px;
+    z-index: 10050; /* sit above the top-bar and other UI */
+    display: block;
+}
+
+/* Keep a single source of truth for .corner-logo; avoid duplicate blocks */
+
+@media (max-width: 480px) {
+    .corner-logo {
+        width: 48px !important;
+        height: 48px !important;
+        left: 8px !important;
+        top: 8px !important;
+    }
+}
+
+/* Full-width rectangle behind the top actions */
+.top-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 64px; /* height of the bar behind the buttons */
+    background: var(--color-light-pink, #CC847E); /* use project light pink */
+    z-index: 9990; /* behind the buttons */
+    pointer-events: none; /* allow clicks through to buttons */
+}
+
+.login-btn {
+    position: static;
+    top: auto;
+    right: auto;
+    background: var(--color-maroon, #5B0B24);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(91,11,36,0.18);
+    z-index: 1000;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(91,11,36,0.22);
+}
+
+/* Upload button positioned left of login */
+.upload-btn {
+    position: static;
+    top: auto;
+    right: auto;
+    background: #ffffff;
+    color: var(--color-maroon, #5B0B24);
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    z-index: 1000;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg, #E0D6CC);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem; /* keep some space around centered container */
+}
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.upload-area {
+    border: 3px dashed #ddd;
+    border-radius: 10px;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover, .upload-area.dragover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+button:hover:not(:disabled) {
+    background: #5a6fd8;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.result {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.result-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.result-badge.ai {
+    background: #ff6b6b;
+    color: white;
+}
+
+.result-badge.real {
+    background: #51cf66;
+    color: white;
+}
+
+.details {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+/* Ensure the login button sits above other UI and stays in top-right on all viewports */
+.top-actions {
+    position: fixed !important;
+    top: 16px !important;
+    right: 16px !important;
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important;
+    z-index: 9999 !important;
+}
+
+@media (max-width: 480px) {
+    .login-btn {
+        top: 10px !important;
+        right: 10px !important;
+        padding: 0.45rem 0.7rem !important;
+        font-size: 0.95rem !important;
+    }
+}
+
+    /* Important overrides for top-actions container */
+    .top-actions {
+        position: fixed !important;
+        top: 16px !important;
+        right: 16px !important;
+        display: flex !important;
+        gap: 40px !important;
+        align-items: center !important;
+        z-index: 9999 !important;
+    }
+
+    @media (max-width: 480px) {
+        .upload-btn {
+            right: 140px !important;
+            padding: 0.45rem 0.7rem !important;
+            font-size: 0.95rem !important;
+        }
+    }
+
+/* Strong override to ensure the top-bar is visible */
+.top-bar {
+    background: var(--color-light-pink, #CC847E) !important;
+    height: 80px !important;
+    display: block !important;
+    z-index: 9990 !important;
+}
