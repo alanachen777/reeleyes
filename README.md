@@ -133,7 +133,7 @@ Built with ❤️ for SteelHacks 2025 by Chalant (Go WVU!!!)
 Alana Chen - Full-stack developer, ayc00003@mix.wvu.edu
 Kara Adzima - Front-end developer, kaa00024@mix.wvu.edu
 Ava Hill - Front-end developer, amh00065@mix.wvu.edu
-Josiah Brown - Backend developer, jed00076@mix.wvu.edu
+Josiah Brown - Backend developer, jbd00076@mix.wvu.edu
 
 ---
 
