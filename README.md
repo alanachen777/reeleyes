@@ -72,10 +72,19 @@ ReelEyes uses multiple analysis techniques:
 ```
 reeleyes/
 ├── backend/
-│   └── app.py          # Flask server and AI detection logic
-├── index.html          # Main web interface
-├── style.css           # Styling and responsive design
+│   ├── app.py          # Main Flask server
+│   ├── analyzer.py     # AI detection logic
+│   ├── ml_detector.py  # Machine learning detector
+│   └── run_server.py   # Server runner
+├── frontend/
+│   ├── index.html      # Main web interface
+│   └── style.css       # Styling and responsive design
+├── scripts/
+│   ├── train_ml.py     # ML model training
+│   ├── test_*.py       # Test files
+│   └── extract_*.py    # Data extraction tools
 ├── run.bat            # Windows startup script
+├── requirements.txt   # Python dependencies
 └── README.md          # This file
 ```
 
