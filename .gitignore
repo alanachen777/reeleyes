@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Mac/Windows
+.DS_Store
+Thumbs.db
+
+# Python data / models
+*.pkl
+*.h5
+demo_data.csv
+
+# Collected video data and uploaded files
+backend/collected_videos/
+backend/ai_detector.pkl
+backend/collected_metrics.csv
+backend/collected_metrics_labeled.csv
+
+# Test artifacts
+backend/__pycache__/
+
+# Logs
+*.log
