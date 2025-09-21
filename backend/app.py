@@ -5,6 +5,9 @@ import tempfile
 import requests
 import base64
 
+from analyzer import analyze_video_bytes
+from ml_detector import predict_from_metrics
+
 app = Flask(__name__)
 CORS(app)
 
@@ -32,61 +35,46 @@ def analyze_video():
         
         print(f"Got file: {file.filename}")
         
-        # Try real AI detection API
+        # Read file bytes once and analyze with the analyzer module
         file_data = file.read()
         file.seek(0)
-        size_mb = len(file_data) / (1024 * 1024)
-        
-        # Practical detection for hackathon demo
-        filename = file.filename.lower()
-        
-        # Strong indicators
-        ai_keywords = ['ai', 'generated', 'fake', 'deepfake', 'synthetic', 'artificial', 'sora', 'runway', 'midjourney']
-        has_ai_keywords = any(keyword in filename for keyword in ai_keywords)
-        
-        # Analyze file header for codec signatures
-        header = file_data[:1000]
-        
-        # Common AI generation signatures
-        ai_signatures = [b'ffmpeg', b'x264', b'libx264']
-        has_ai_codec = any(sig in header.lower() for sig in ai_signatures)
-        
-        # File characteristics analysis
-        file_entropy = len(set(file_data[:5000])) / min(5000, len(file_data))
-        
-        # Scoring system
-        ai_score = 0
-        indicators = []
-        
-        if has_ai_keywords:
-            ai_score += 0.8
-            indicators.append('AI keywords in filename')
-        
-        if has_ai_codec:
-            ai_score += 0.3
-            indicators.append('AI generation codec detected')
-        
-        if file_entropy < 0.3:  # Low entropy suggests artificial patterns
-            ai_score += 0.4
-            indicators.append('low entropy patterns')
-        
-        # File size patterns (AI videos often have specific size ranges)
-        if 1 < size_mb < 50:  # Typical AI generation range
-            ai_score += 0.2
-            indicators.append('typical AI file size range')
-        
-        is_ai = ai_score > 0.5
-        
-        if is_ai:
-            details = f'Analyzed {size_mb:.1f}MB video. Detected: {", ".join(indicators)}'
-        else:
-            details = f'Analyzed {size_mb:.1f}MB video. No significant AI indicators found'
-        
+
+        # Optional client flags
+        ignore_size = request.form.get('ignore_size', 'false').lower() in ('1', 'true', 'yes')
+        sensitivity = request.form.get('sensitivity', 'medium')
+        debug_metrics = request.form.get('debug_metrics', 'false').lower() in ('1', 'true', 'yes')
+
+        analysis = analyze_video_bytes(file_data, filename=file.filename, ignore_size=ignore_size, sensitivity=sensitivity)
+
+        # Provide a human-friendly summary alongside numeric confidence
+        confidence = analysis['confidence']
+        indicators = analysis['indicators']
+        size_mb = analysis['size_mb']
+        metrics = analysis.get('metrics', None)
+
+        # Instead of a hard boolean based on size, return confidence and let frontend threshold
+        # But lower server-side threshold when sensitivity is high
+        threshold = 0.6
+        if sensitivity and sensitivity.lower() == 'high':
+            threshold = 0.45
+
         result = {
-            'is_ai_generated': is_ai,
-            'details': details
+            'confidence': confidence,
+            'is_ai_generated': confidence >= threshold,
+            'indicators': indicators,
+            'size_mb': size_mb,
+            'ignored_size': ignore_size,
+            'sensitivity': sensitivity,
         }
-        
+
+        if debug_metrics and metrics is not None:
+            result['metrics'] = metrics
+
+        # include ML prediction if a model is available
+        ml_res = predict_from_metrics(metrics or {})
+        if ml_res is not None:
+            result['ml'] = ml_res
+
         print(f"Returning: {result}")
         return jsonify(result)
         
